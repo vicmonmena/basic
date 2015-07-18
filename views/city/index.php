@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\Country;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CitySearch */
@@ -27,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'city',
-            'country_id',
+            [
+                'attribute' => 'country_id',
+                'value' => function($model) {
+                    $country = Country::findOne($model->country_id);
+                    return $country->name;
+                },
+                'filter' => ArrayHelper::map(Country::find()->all(), 'id', 'name'),
+            ],
             'create_at',
             'update_at',
 

@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use app\models\City;
+use app\models\Country;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UserSearch */
@@ -27,11 +30,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            // 'email:email',
-            // 'status',
+            [
+                'attribute' => 'country_id',
+                'value' => function($model) {
+                    $country = Country::findOne($model->country_id);
+                    return $country->name;
+                },
+                'filter' => ArrayHelper::map(Country::find()->all(), 'id', 'name'),
+            ],
+            [
+                'attribute' => 'city_id',
+                'value' => function($model) {
+                    $city = City::findOne($model->city_id);
+                    return $city->city;
+                },
+                'filter' => ArrayHelper::map(City::find()->all(), 'id', 'city'),
+            ],
+            'email:email',
+            'status',
             // 'created_at',
             // 'updated_at',
 

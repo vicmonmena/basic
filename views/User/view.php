@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\City;
+use app\models\Country;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -33,6 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'auth_key',
             'password_hash',
             'password_reset_token',
+            [
+                'attribute' => 'country_id',
+                'value' => Country::findOne($model->country_id)->name
+            ],
+            [
+                'attribute' => 'city_id',
+                'value' => City::findOne($model->country_id)->city
+            ],
             'email:email',
             'status',
             'created_at',

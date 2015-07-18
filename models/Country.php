@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "country".
@@ -55,5 +56,13 @@ class Country extends \yii\db\ActiveRecord
     public function getCities()
     {
         return $this->hasMany(City::className(), ['country_id' => 'id']);
+    }
+
+    /** 
+     * @return \yii\db\ActiveQuery 
+     */ 
+    public function getUsers() 
+    { 
+       return $this->hasMany(User::className(), ['city_id' => 'id']); 
     }
 }

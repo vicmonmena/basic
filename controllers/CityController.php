@@ -118,4 +118,27 @@ class CityController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /**
+     * Obtiene un listado de ciudades cuyo contry_id coincida con el argumento.
+     * El formato del listado será HTML de tipo <option value=ID>NAME</option> 
+     */
+    public function actionList($id) {
+ 
+        $cities = City::find()
+            ->where(['country_id' => $id])
+            ->all();
+
+        $citiesSize = City::find()
+            ->where(['country_id' => $id])
+            ->count();
+
+        if ($citiesSize > 0) {
+            foreach ($cities as $city) {
+                echo "<option value='" . $city->id . "'>" . $city->city . "</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
 }

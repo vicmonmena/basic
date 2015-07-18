@@ -6,7 +6,8 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
+use app\models\City;
+use app\models\Country;
 /**
  * User model
  *
@@ -54,6 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['username', 'password_hash'], 'required'],
             [['email'], 'safe'],
+            [['country_id', 'city_id'], 'integer'],
         ];
     }
 
@@ -186,5 +188,21 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /** 
+     * @return \yii\db\ActiveQuery 
+     */ 
+    public function getCity()
+    {
+       return $this->hasOne(City::className(), ['id' => 'city_id']);
+    }
+
+    /** 
+     * @return \yii\db\ActiveQuery 
+     */ 
+    public function getCountry()
+    {
+        return $this->hasOne(Country::className(), ['id' => 'country_id']);
     }
 }

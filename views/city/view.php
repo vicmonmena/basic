@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use app\models\Country;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\City */
@@ -30,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'city',
-            'country_id',
+            [
+                'attribute' => 'country_id',
+                'value' => Country::findOne($model->country_id)->name
+            ],
             'create_at',
             'update_at',
         ],
