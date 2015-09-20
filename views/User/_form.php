@@ -26,6 +26,10 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'status')->textInput() ?>
 
+    <?= $form->field($model, 'web')->textInput(['maxlength' => true]) ?> 
+ 
+    <?= $form->field($model, 'twitter')->textInput(['maxlength' => true]) ?> 
+
     <?= $form->field($model, 'country_id') 
 		->dropDownList(
 			ArrayHelper::map(Country::find()->all(), 'id', 'name'),

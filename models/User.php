@@ -21,6 +21,8 @@ use app\models\Country;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $web
+ * @property string $twitter
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -56,6 +58,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['username', 'password_hash'], 'required'],
             [['email'], 'safe'],
             [['country_id', 'city_id'], 'integer'],
+            [['web', 'twitter'], 'string', 'max' => 255],
         ];
     }
 

@@ -50,8 +50,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             // 'created_at',
             // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete} {twitter} {web}',
+                'buttons' => [
+                    'web' => function ($url, $model, $key) { 
+                        return $model->web != '' ? Html::a(
+                            '<span class="glyphicon glyphicon-globe"</span>',
+                            $model->web) : '';
+                    },
+                    'twitter' => function ($url, $model, $key) { 
+                        return $model->twitter != '' ? Html::a(
+                            '<span class="glyphicon glyphicon-picture"</span>',
+                            $model->twitter) : '';
+                    },
+                ],
+            ],
         ],
     ]); ?>
 
